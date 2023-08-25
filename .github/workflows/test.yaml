@@ -20,5 +20,8 @@ jobs:
       - name: Install Dependencies
         run: docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/app composer:2 install
 
+      - name: Generate the key
+        run: docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/app -w /app php:8.2 /app/bin/console lexik:jwt:generate-keypair
+
       - name: Test
         run: docker run --rm -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/app -w /app php:8.2 /app/vendor/bin/phpunit
